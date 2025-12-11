@@ -1,0 +1,14 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  ORMBundle\:
+    resource: '../../*'
+    exclude: '../../{DependencyInjection,Entity,Doctrine/PostgreSQL/Timeout/Driver.php}'
+
+  ORMBundle\Doctrine\PostgreSQL\Timeout\TimeoutOptionsService:
+    $statementTimeout: '%env(default::int:POSTGRES_STATEMENT_TIMEOUT)%'
+    $idleInTransactionSessionTimeout: '%env(default::int:POSTGRES_IDLE_IN_TRANSACTION_TIMEOUT)%'
+    $lockTimeout: '%env(default::int:POSTGRES_LOCK_TIMEOUT)%'

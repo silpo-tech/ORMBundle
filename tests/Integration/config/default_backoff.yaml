@@ -1,0 +1,7 @@
+doctrine:
+  dbal:
+    connections:
+      default:
+        driver: pdo_sqlite
+        memory: true
+        wrapper_class: ORMBundle\Doctrine\ConnectionWrapper

@@ -1,0 +1,52 @@
+{
+  "name": "silpo-tech/orm-bundle",
+  "type": "symfony-bundle",
+  "description": "Common ORM bundle helpers",
+  "license": "MIT",
+  "require": {
+    "php": "^8.2",
+    "doctrine/doctrine-bundle": "^2.5",
+    "doctrine/doctrine-migrations-bundle": "^3.2",
+    "doctrine/orm": "^2.11",
+    "doctrine/dbal": "^3.0",
+    "symfony/uid": "^7.0",
+    "symfony/dependency-injection": "^7.0",
+    "symfony/validator": "^7.0",
+    "symfony/config": "^7.0",
+    "symfony/property-access": "^7.0",
+    "symfony/doctrine-bridge": "^7.0",
+    "symfony/clock": "^7.2",
+    "symfony/yaml": "^7.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^10.0",
+    "dg/bypass-finals": "^1.9",
+    "phpspec/prophecy-phpunit": "^2.4",
+    "code-distortion/backoff": "^0.1.2",
+    "phpstan/phpstan": "^2.1",
+    "friendsofphp/php-cs-fixer": "^3.8",
+    "jangregor/phpstan-prophecy": "^2.2"
+  },
+  "suggest": {
+    "code-distortion/backoff": "Enables advanced retry strategies for fine-tuned connection retry behavior. Without this package, only basic fixed-delay retries are available."
+  },
+  "autoload": {
+    "psr-4": {
+      "ORMBundle\\": "src/",
+      "ORMBundle\\Tests\\": "tests/"
+    }
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true,
+  "scripts": {
+    "test:ci": [
+      "@test:coverage"
+    ],
+    "test:coverage": {
+      "command": "APP_ENV=test php -d extension=pcov.so -d pcov.enabled=1 vendor/bin/phpunit --coverage-text --coverage-html ./reports/coverage --colors=never --coverage-cobertura=./reports/coverage/cobertura.xml --coverage-clover=./reports/coverage/clover.xml --log-junit=./reports/coverage/junit.xml"
+    },
+    "test:run": [
+      "APP_ENV=test php vendor/bin/phpunit --color=always"
+    ]
+  }
+}

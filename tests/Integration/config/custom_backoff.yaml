@@ -1,0 +1,32 @@
+services:
+  app.custom_backoff_factory:
+    class: ORMBundle\Backoff\Adapter\CodeDistortionBackoffFactory
+
+doctrine:
+  dbal:
+    default_connection: default
+    connections:
+      default:
+        driver: pdo_sqlite
+        memory: true
+        wrapper_class: ORMBundle\Doctrine\ConnectionWrapper
+        options:
+          backoff_factory: '@app.custom_backoff_factory'
+          backoff_options:
+            strategy: exponential
+            max_retries: 3
+            initial_delay: 50000
+            factor: 2.0
+            max_delay: 1000000
+      secondary:
+        driver: pdo_sqlite
+        memory: true
+        wrapper_class: ORMBundle\Doctrine\ConnectionWrapper
+        options:
+          backoff_factory: '@app.custom_backoff_factory'
+          backoff_options:
+            strategy: linear
+            max_retries: 5
+            initial_delay: 100000
+            step: 50000
+            max_delay: 500000
