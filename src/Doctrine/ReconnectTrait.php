@@ -90,6 +90,6 @@ trait ReconnectTrait
 
         $previous = $e->getPrevious();
 
-        return $previous !== null && $previous->getCode() === 7;
+        return null !== $previous && 7 === $previous->getCode();
     }
 }
