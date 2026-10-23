@@ -106,8 +106,8 @@ class ORMUniqueValidator extends ConstraintValidator
             if ((null === $dtoValue) || !$class->hasField($entityField)) {
                 continue;
             }
-            $fieldType = $class->getFieldMapping($entityField)['type'];
-            if (!in_array($fieldType, self::ALLOWED_TYPES)) {
+            $fieldType = $class->getTypeOfField($entityField);
+            if (!in_array($fieldType, self::ALLOWED_TYPES, true)) {
                 $this->context
                     ->buildViolation('Field type not supported for uniqueness validation')
                     ->atPath($dtoField)

@@ -51,8 +51,9 @@ trait DBValidatorTestTrait
         $qb->andWhere(Argument::any())->willReturn($qb->reveal());
         $qb->setParameter(Argument::any(), Argument::any(), Argument::any())->willReturn($qb->reveal());
 
-        // Methods that return specific values
-        $qb->expr()->willReturn($this->prophesize(Expr::class)->reveal());
+        $exprMock = $this->prophesize(Expr::class);
+        $exprMock->in(Argument::any(), Argument::any())->willReturn(new Expr\Func('IN', []));
+        $qb->expr()->willReturn($exprMock->reveal());
         $qb->getQuery()->willReturn($query);
 
         // Parameters setup

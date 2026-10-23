@@ -123,7 +123,7 @@ final class ORMUniqueValidatorTest extends ConstraintValidatorTestCase
         $dto->name = null;  // This should trigger $dtoValue === null and hit line 106
 
         $this->metadataMock->hasField('email')->willReturn(true);
-        $this->metadataMock->getFieldMapping('email')->willReturn(['type' => 'string']);
+        $this->metadataMock->getTypeOfField('email')->willReturn('string');
         $this->metadataMock->hasField('name')->willReturn(true);
 
         $constraint = new ORMUnique('stdClass', includeFields: ['email', 'name']);
@@ -141,7 +141,7 @@ final class ORMUniqueValidatorTest extends ConstraintValidatorTestCase
 
         // First field exists and will add parameters
         $this->metadataMock->hasField('email')->willReturn(true);
-        $this->metadataMock->getFieldMapping('email')->willReturn(['type' => 'string']);
+        $this->metadataMock->getTypeOfField('email')->willReturn('string');
 
         // Second field doesn't exist in entity metadata - this should hit line 106
         $this->metadataMock->hasField('nonExistentField')->willReturn(false);
@@ -158,7 +158,7 @@ final class ORMUniqueValidatorTest extends ConstraintValidatorTestCase
         $dto = new \stdClass();
         $dto->dateField = new \DateTime();
         $this->metadataMock->hasField('dateField')->willReturn(true);
-        $this->metadataMock->getFieldMapping('dateField')->willReturn(['type' => 'datetime']);
+        $this->metadataMock->getTypeOfField('dateField')->willReturn('datetime');
         $constraint = new ORMUnique('stdClass', includeFields: ['dateField']);
 
         $this->validator->validate($dto, $constraint);
@@ -178,7 +178,7 @@ final class ORMUniqueValidatorTest extends ConstraintValidatorTestCase
         $entity->id = '123';
 
         $this->metadataMock->hasField('email')->willReturn(true);
-        $this->metadataMock->getFieldMapping('email')->willReturn(['type' => 'string']);
+        $this->metadataMock->getTypeOfField('email')->willReturn('string');
     }
 
     protected function createValidator(): ORMUniqueValidator
